@@ -3,13 +3,14 @@ import numpy as np
 parray = np.arange(0,0)
 primes_list = []
 primes_array = []
+primes_set = set();
 num_primes = 0
-init = False
+init_primes = False
 
 print "primes alloc!"
 
 def get_primes():
-	global parray,primes_list,primes_array
+	global parray,primes_list,primes_array,primes_set
 	i = 4
 	cur_prime = 2
 	array_length = len(parray)
@@ -27,12 +28,13 @@ def get_primes():
 	parray[1] = 0 #not prime
 	primes_list = parray[parray.nonzero()]
 	primes_array= np.array(primes_list)
+	primes_set = set(primes_list)
 
 def init(n):
-	global parray
+	global parray,init_primes
 	parray = np.arange(0,n)
 	get_primes()
-	init = True
+	init_primes = True
 	print "primes found!"
 
 def sqrt_prime(x):
@@ -45,7 +47,7 @@ def sqrt_prime(x):
 	return True
 
 def is_prime(x):
-	if x < 2*10**6:
+	if x < len(parray):
 		return (parray[x] != 0)	
 	#return sqrt_prime(x)
 	return miller_rabin(x)
@@ -76,13 +78,25 @@ def concat_nums(a,b):
 	#res = a*10**(math.floor(math.log10(b))+1)+b
 	return res
 
-def problem60():
-	special = [3,7,109,673]
-	for prime in primes_list:
-		count  = 0 
-		for s in special:
-			if is_prime(concat_nums(prime,s)):
-				if is_prime(concat_nums(s,prime)):
-	     				count +=1
-		if count == 5:
-			return prime
+def euler_phi(n, meuler_phi={1:1}):
+	if n in meuler_phi:
+		return meuler_phi[n]
+	if n in primes_set:
+		meuler_phi[n] = n-1
+		return n-1
+	if n < len(parray):
+		cur_n = n
+		for p in primes_list:
+			count = 0
+			while cur_n % p == 0:
+				count +=1
+				cur_n = cur_n/p
+			if count > 0:
+				if n == p**count:
+					result = (p-1)*p**(count-1)
+				else:
+					result = ((p-1)*p**(count-1)*
+						euler_phi(n/p**count))
+				meuler_phi[n] = result
+				return result
+	print "oops!"
