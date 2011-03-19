@@ -1,8 +1,8 @@
+#status: works. very slow. :(
+
 import primes as pr
 import itertools as it
 import networkx
-import psyco
-psyco.full()
 
 misconcat = {}
 def is_concat(p1,p2):
@@ -38,6 +38,7 @@ def find_complete_subgraph(graph,n):
 
 def solutions(n,k):
 	sub_prime = pr.primes_list[:n]
+	print sub_prime
 	num_primes = len(sub_prime)
 	concatenable_pairs = {}
 	for p in pr.primes_list[:n]:
@@ -51,5 +52,16 @@ def solutions(n,k):
 				G.add_edge(p1,p2)
 	print "clique finding"
 	cliques = networkx.find_cliques(G)
-	return filter(lambda x: len(x) >= k,cliques)
+	poss = filter(lambda x: len(x) == k,cliques)
+	if poss != []:
+		poss = min(poss,key=lambda x:sum(x))
+	return poss
 	#return find_complete_subgraph(concatenable_pairs,k)
+sol = []
+primes = 1
+while sol == []:
+	primes *= 10
+	pr.init(primes)
+	sol = solutions(primes,5)
+print sol
+print "answer:",sum(sol)
