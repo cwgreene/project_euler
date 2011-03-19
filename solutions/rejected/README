@@ -1,0 +1,5 @@
+Sometimes an approach is too wrong and too complicated to be part
+of the final solution file (or the chosen approach is too complicated
+and the wrong solution just pollutes the namespace).
+
+This directory is for these failed approaches.
