@@ -1,3 +1,4 @@
+#euler58
 import primes
 import itertools as it
 import sys
@@ -23,6 +24,7 @@ def prime_percent(n):
 				break
 
 if __name__=="__main__":
+	primes.init(10**6)
 	n = 10**6
 	if len(sys.argv) > 1:
 		n = eval(sys.argv[1])
