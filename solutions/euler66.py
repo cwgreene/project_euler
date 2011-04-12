@@ -1,5 +1,9 @@
 import math
 
+#this brute method will technically work
+#but without any bounds on the answer
+#it could theoretically take years or millenia for certain numbers.
+
 def find_x(D):
 	y = 1
 	test = square_root(1+D*y**2)
@@ -8,7 +12,15 @@ def find_x(D):
 		test = square_root(1+D*y**2)
 	return test
 
+#binary search for square roots
+#exists due to the fact that for very large numbers,
+#(which we won't ever get to, so this is a waste of time)
+#the math.sqrt(x) == int(math.sqrt(x)) method won't work.
+#however, by the time we get to that point, we're in 10**26
+#land, which if we're incrementing by 1, we won't ever get to.
 def square_root(x,hi=None,lo=0):
+	if x <= 10**26:
+		return int(math.floor(math.sqrt(x)))
 	if hi == None:
 		hi = x
 	cur = (hi+lo)/2
