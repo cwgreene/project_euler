@@ -16,16 +16,24 @@ def round(n,k):
 	num = math.floor(n*k)/k
 	return num
 
+def next_num(radical,numer,denom,integer):
+	sub = integer*denom
+	denom = denom-integer*denom
+	
+
+def eval_num(radical,numer,denom):
+	return int(math.floor((math.sqrt(radical)-numer)/denom))
+
 def construct_continued_fraction(num,acc=None,hist=None):
 	if acc == None: acc = []
 	if hist == None: hist = set()
-	radical,rcoef,coef=num
-	integer,frac = math.floor(num),num-math.floor(num)
-	acc.append(integer)
-	print "hi",integer,frac,round(frac,10000)
-	if (integer,round(frac,10000)) not in hist:
-		hist.add((integer,round(frac,10000)))
-		construct_continued_fraction(1/frac,acc,hist)
+	radical,numer,denom=num
+	integer = eval_num(radical,numer,denom)
+	acc.append(integer,integer)
+	if (integer,rcoef,coef) not in hist:
+		hist.add((integer,rcoef,coef))
+		nextnum = next_num(radical,numer,denom,integer)
+		construct_continued_fraction(nextnum,acc,hist)
 	return acc[0],acc[1:]
 #the following, as one would expect does not work
 #if num is not a float due to rounding
