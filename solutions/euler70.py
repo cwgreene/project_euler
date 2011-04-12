@@ -14,7 +14,7 @@ def is_perm_array(x,y):
 	xs = str(x)
 	ys = str(y)
 	if len(xs) != len(ys):
-			return false
+		return false
 	xa = [0]*10
 	ya = [0]*10
 	for i in range(len(xs)):
@@ -41,4 +41,3 @@ def main():
 	for prime in primes.primes_list:
 		alpha = int(math.log(10**7,prime))
 		phi = euler_phi(prime**alpha)
-		if_

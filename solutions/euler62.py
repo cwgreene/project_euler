@@ -1,4 +1,3 @@
-digit_primes = [2,3,5,7,11,13,17,23,29,31]
 #euler 62
 
 #improvement can be done in main
@@ -6,7 +5,8 @@ digit_primes = [2,3,5,7,11,13,17,23,29,31]
 #simplest way I can think of is just wait until
 #cube digits increase. We might want another dict
 #that keeps track of people who have gotten a 5.
-def digit_hash(num):
+def digit_hash(num,
+		digit_primes = [2,3,5,7,11,13,17,23,29,31]):
 	numstr = str(num)
 	acc = 1
 	for x in numstr:
