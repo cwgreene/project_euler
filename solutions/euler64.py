@@ -12,20 +12,49 @@ def evaluate_continued_fraction(frac,n):
 	acc += 1/(reps[0]+evaluate_continued_fraction((0,rotshift(reps)),n-1))
 	return acc
 
+def round(n,k):
+	num = math.floor(n*k)/k
+	return num
+
+def construct_continued_fraction(num,acc=None,hist=None):
+	if acc == None: acc = []
+	if hist == None: hist = set()
+	radical,rcoef,coef=num
+	integer,frac = math.floor(num),num-math.floor(num)
+	acc.append(integer)
+	print "hi",integer,frac,round(frac,10000)
+	if (integer,round(frac,10000)) not in hist:
+		hist.add((integer,round(frac,10000)))
+		construct_continued_fraction(1/frac,acc,hist)
+	return acc[0],acc[1:]
 #the following, as one would expect does not work
 #if num is not a float due to rounding
 #So either tolerance must be introduced
 #(which makes the dict approach mostly untenable)
 #or the remainder most be made exact. This is doable
 #for the purposes of roots
+#or we can just round the key...
 def construct_continued_fraction_wrong(num,acc=None,hist=None):
 	if acc == None: acc = []
 	if hist == None: hist = set()
 	integer,frac = math.floor(num),num-math.floor(num)
-	acc.append(integer)
-	print integer,frac
-	raw_input()
-	if (integer,frac) not in hist:
-		hist.add((integer,frac))
-		construct_continued_fraction(1/frac,acc,hist)
+	places = 10**4
+	if (integer,round(frac,places)) not in hist:
+		acc.append(integer)
+		hist.add((integer,round(frac,places)))
+		construct_continued_fraction_wrong(1/frac,acc,hist)
 	return acc[0],acc[1:]
+
+def main(n):
+	count = 0
+	for x in range(1,n+1):
+		sqrtx = math.sqrt(x)
+		if sqrtx*sqrtx != x:
+			result=construct_continued_fraction_wrong(sqrtx)
+			start,pattern = result
+			if len(pattern) % 2 != 0:
+				count +=1
+	print count
+
+if __name__=="__main__":
+	main(10**4)

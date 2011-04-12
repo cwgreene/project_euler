@@ -74,9 +74,9 @@ def miller_rabin(n):
 	return True
 
 def concat_nums(a,b):
-	res=int(str(a)+str(b))
-	#res = a*10**(math.floor(math.log10(b))+1)+b
-	return res
+	return int(str(a)+str(b))
+	#res = a*10**(np.floor(np.log10(b))+1)+b
+	
 
 def euler_phi(n, meuler_phi={1:1}):
 	if n in meuler_phi:

@@ -1,11 +1,12 @@
-#status: works. very slow. :(
+#status: works. very slow. :( 1m40 seconds
+#50 seconds if we make sure all primes get preloaded
 
 import primes as pr
 import itertools as it
 import networkx
+import cProfile
 
-misconcat = {}
-def is_concat(p1,p2):
+def is_concat(p1,p2,misconcat={}):
 	if (p1,p2) in misconcat:
 		return misconcat[(p1,p2)]
 	misconcat[(p1,p2)]=False
@@ -38,7 +39,9 @@ def find_complete_subgraph(graph,n):
 
 def solutions(n,k):
 	sub_prime = pr.primes_list[:n]
-	print sub_prime
+	#this might take about 20 seconds
+	#
+	#print "sub_prime",sub_prime,len(sub_prime)
 	num_primes = len(sub_prime)
 	concatenable_pairs = {}
 	for p in pr.primes_list[:n]:
@@ -49,7 +52,9 @@ def solutions(n,k):
 	for p1,p2 in pairs:
 		if p1 < p2:
 			if is_concat(p1,p2):
-				G.add_edge(p1,p2)
+				G.add_edge(p1,p2) #if we checked
+						  #now, we'd probably
+						  #be fine.
 	print "clique finding"
 	cliques = networkx.find_cliques(G)
 	poss = filter(lambda x: len(x) == k,cliques)
@@ -57,11 +62,18 @@ def solutions(n,k):
 		poss = min(poss,key=lambda x:sum(x))
 	return poss
 	#return find_complete_subgraph(concatenable_pairs,k)
-sol = []
-primes = 1
-while sol == []:
-	primes *= 10
-	pr.init(primes)
-	sol = solutions(primes,5)
-print sol
-print "answer:",sum(sol)
+
+def main():
+	sol = []
+	prime_length = 10**8
+	pr.init(prime_length)
+	primes = 1
+	while sol == []:
+		if primes > prime_length:
+			pr.init(primes)
+		sol = solutions(1200,5)
+	print sol
+	print "answer:",sum(sol)
+
+if __name__ == '__main__':
+	main()

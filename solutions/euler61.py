@@ -1,45 +1,57 @@
-#status: unsolved
-import math
+from collections import defaultdict
 
-def squares(n,m):
-	squareset= set()
-	for k in range(int(math.sqrt(n)),int(math.sqrt(m))+1):
-		squareset.add(k*k)
-	return squareset
+def octagonal(n):
+	return n*(3*n-2)
+def heptagonal(n):
+	return n*(5*n-3)/2
+def hexagonal(n):
+	return n*(2*n-1)
+def pentagonal(n):
+	return n*(3*n-1)/2
+def square(n):
+	return n*n
+def triangle(n):
+	return n*(n+1)/2
 
-def are_any_roots_naturals(poly):
-	zeroes = roots(poly)
-	for x in zeroes:
-		if x>=1 and x == int(x):
-			return True
-	return False
+def generate_four_digits(function):
+	n = 1
+	while function(n) < 1000:
+		n+=1
+	result = defaultdict(list) 
+	while function(n) < 10000:
+		funcval = function(n)
+		valstr = str(funcval)
+		result[valstr[0:2]].append(str(function(n)))
+		n+=1
+	return result
 
-def is_triangular(n):
-	#k*(k+1)/2 = n=>2*n=k*k+k
-	#k*(k+1)/2 = m
-	return are_any_roots_naturals([1,-1,-2*n])
+def generate_sequence(cur_remaining,curkey):
+	results = []
+	for numtype in cur_remaining:
+		if curkey in numtype: #can we match?
+			rem = list(cur_remaining)
+			rem.remove(numtype)
+			if rem == []: #at end
+				for num in numtype[curkey]:
+					results.append([num])
+			for num in numtype[curkey]:
+				subsq = generate_sequence(rem,num[2:])
+				for x in subsq:
+					if x != []:
+			 		 for num in numtype[curkey]:
+					  results.append([num]+x)
+	return results #could be empty
 
-def is_pentagonal(n):
-	#k*(3*k-1)/2 = n => 
-	#2*n=k*(3*k-1)=>2*n=3*k^2-k
-	return are_any_roots_naturals([3,-1,-2*n])
+def main():
+	all_funcs = [triangle,square,pentagonal,
+			hexagonal,heptagonal,octagonal]
+	all_digits = map(generate_four_digits,all_funcs)
+	for value in all_digits[0].values():
+		for num in value:
+			results = generate_sequence(all_digits[1:],num[2:])
+			for result in results:
+				if num[0:2] == result[-1][2:]:
+					print sum(map(int,[num]+result))
 
-def is_hexagonal(n):
-	#n = k*(2*k-1) => 0 = 2*k^2-1,n
-	return are_any_roots_naturals([2,-1,-n])
-
-def is_heptagonal(n):
-	return are_any_roots_naturals([5,-3,-2*n])
-
-def is_octagonal(n):
-	return are_any_roots_naturals([3,-2,-n])
-
-def roots(poly):
-	if len(poly) != 3:
-		raise("Only second orders work for now")
-	#quadratic formula
-	#root = (-b+/-sqrt(b^2-4*ac))/2
-	(a,b,c) = poly
-	root_p = (-b+math.sqrt(b**2-4*a*c))/(2.*a)
-	root_m = (-b-math.sqrt(b**2-4*a*c))/(2.*a)
-	return root_p,root_m
+if __name__=="__main__":
+	main()
