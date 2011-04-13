@@ -77,6 +77,18 @@ def concat_nums(a,b):
 	return int(str(a)+str(b))
 	#res = a*10**(np.floor(np.log10(b))+1)+b
 	
+def euler_phi_factors(factors):
+	counts = {}
+	for p in factors:
+		if p in counts:
+			counts[p]+=1
+		else:
+			counts[p]=1
+	ep = 1
+	for p in counts:
+		ep*=(p-1)*p**(counts[p]-1)
+	return ep
+	
 
 def euler_phi(n, meuler_phi={1:1}):
 	if n in meuler_phi:

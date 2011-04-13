@@ -7,7 +7,7 @@ def choose_ordered(n,m):
 	for x in range(n):
 		
 
-def addcode(curval,subcode)
+def addcode(curval,subcode):
 	#if subcode _matches_ then we don't need to do anything unusual.
 	for i,x in enumerate(subcode);
 		if x in curval:
