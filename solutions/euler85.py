@@ -13,7 +13,8 @@ def rects_fast(n,m):
 #the following is a really bad way of solving this.
 #we should instead find the upperbound for a single number
 #and then proceed to find the nearest for each one, then proceed
-#to take the nearest.
+#to take the nearest (which can be found using binary search since 
+#the function is monotonically increasing)
 result=[(abs(rects_fast(n,m)-2*10**6),n,m) for n in range(1,1000) 
 			for m in range(1,1000)]
 result.sort()
