@@ -1,4 +1,5 @@
 #euler 65
+#easy because we just need evaluate_continued_fraction
 
 import continued_fractions as cf
 
