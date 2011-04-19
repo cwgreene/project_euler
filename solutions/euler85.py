@@ -15,8 +15,17 @@ def rects_fast(n,m):
 #and then proceed to find the nearest for each one, then proceed
 #to take the nearest (which can be found using binary search since 
 #the function is monotonically increasing)
-result=[(abs(rects_fast(n,m)-2*10**6),n,m) for n in range(1,1000) 
-			for m in range(1,1000)]
-result.sort()
-print result[0]
-print result[0][1]*result[0][2]
+
+#the number 2000 comes from the fact that  rects(2000,1) is
+#greater than 2 million. From the monotonic property, if know that
+#the second argument will only increase this value, so we're
+#somewhere else.
+min = 2*10**6
+minval = (0,0)
+for n in xrange(1,2000+1):
+	for m in xrange(1,2000+1):
+		curval = abs(rects_fast(n,m)-2*10**6)
+		if curval < min:
+			min = curval
+			minval = n,m
+print minval[0]*minval[1]
