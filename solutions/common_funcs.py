@@ -1,3 +1,14 @@
+def fast_mod_pow(base,exp,mod,acc=1):
+	while exp != 0:
+		if exp % 2 == 0:
+			base = base*base%mod
+			exp /=2
+		else:
+			#return fast_mod_pow(base*base%mod,exp/2,mod,acc)
+			exp-=1
+			acc= acc*base %mod
+#		return fast_mod_pow(base,exp-1,mod,acc*base%mod)
+	return acc%mod
 def gcd(a,b):
 	if b == 0:
 		return a

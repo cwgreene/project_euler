@@ -112,3 +112,4 @@ def euler_phi(n, meuler_phi={1:1}):
 				meuler_phi[n] = result
 				return result
 	print "oops!"
+
