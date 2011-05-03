@@ -52,6 +52,7 @@ def is_prime(x):
 	#return sqrt_prime(x)
 	return miller_rabin(x)
 
+#not needed
 def fast_mod_exp(num,exp,b):
 	#ensures we never magically become int32
 	cur_exp = exp
@@ -67,9 +68,9 @@ def fast_mod_exp(num,exp,b):
 #below is good up to
 #some num
 def miller_rabin(n):
-	n *= 1L
+	n = int(n)
 	for x in [2L,3L,5L,7L,11L,13L,17L]:
-		if fast_mod_exp(x,n-1,n) != 1:
+		if pow(x,n-1,n) != 1:
 			return False
 	return True
 

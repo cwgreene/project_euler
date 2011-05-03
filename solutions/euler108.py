@@ -1,5 +1,5 @@
 from fractions import Fraction as Frac
-from common_funcs import gcd
+from common_funcs import gcd,choose_degen,choose
 import primes
 
 def reciprocals(n):
@@ -31,12 +31,17 @@ def pyramid_enumerate(n,options,f):
 		index = 0
 	return result
 
-primes.init(1000)
-print pyramid_enumerate(10,primes.primes_list,
-		lambda x:len(reciprocals(product(x))))
+def combinations_distinct(alist):
+	total = 0
+	for x in range(1,len(alist)+1):
+		total += choose_degen(alist,x)*2**(x-1)
+	return total+1
 
-nums = [2*3*5]
+primes.init(1000)
+
+nums = [2*3*2*3*5*5]
 for x in nums:
 	res = reciprocals(x)
 	print res,map(lambda x: Frac(x[1])/Frac(x[0]),res)
 	print len(res),x
+	print combinations_distinct([(2,2),(3,2),(5,2)])

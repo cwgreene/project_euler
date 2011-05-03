@@ -35,11 +35,12 @@ def sqrt_prime(x):
 	return True
 
 def is_prime(x):
-	if x < 2*10**6:
+	if x <= num_primes:
 		return (parray[x] != 0)	
 	#return sqrt_prime(x)
 	return miller_rabin(x)
-
+#totally not needed
+#pow(num,exp,b) is equivalent :(
 def fast_mod_exp(num,exp,b):
 	#ensures we never magically become int32
 	cur_exp = exp
@@ -57,7 +58,7 @@ def fast_mod_exp(num,exp,b):
 def miller_rabin(n):
 	n *= 1L
 	for x in [2L,3L,5L,7L,11L,13L,17L]:
-		if fast_mod_exp(x,n-1,n) != 1:
+		if pow(x,n-1,n) != 1:
 			return False
 	return True
 

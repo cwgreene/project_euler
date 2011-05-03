@@ -17,8 +17,8 @@ def round(n,k):
 	return num
 
 def next_num(radical,numer,denom,integer):
-	sub = integer*denom
-	denom = denom-integer*denom
+	next_denom = radical-numer*numer
+	temp_numer = denom*numer
 	
 
 def eval_num(radical,numer,denom):

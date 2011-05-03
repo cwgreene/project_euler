@@ -40,11 +40,42 @@ def binary_search(alist,val,hi,lo,sign=1):
 def fac(n):
 	prod = 1
 	for x in range(1,n+1):
-		prod*= x
+		prod *= x
 	return prod
 
 def choose(n,k):
 	return fac(n)/(fac(k)*fac(n-k))
+
+def degen_list(alist):
+	indices = {}
+	result = []
+	cur_index = 0
+	for key in alist:
+		if key not in indices:
+			indices[key] = cur_index
+			cur_index += 1
+			result.append((key,1))
+		else:
+			key, count = result[indices[key]]
+			result[indices[key]] = (key,count+1)
+	return result
+
+def degen_product(dlist):
+	p = 1
+	for value,count in dlist:
+		p *= value**count
+	return p
+
+def choose_degen(alist,k):
+	if k > len(alist):
+		return 0
+	if k < 0:
+		return 0
+	if len(alist) == 0:
+		return 1
+	val,degen = alist[0]
+	return (degen*choose_degen(alist[1:],k-1) +
+			choose_degen(alist[1:],k))
 
 def partitions_k(n,k,mpk={}):
 	if (n,k) in mpk:
@@ -63,7 +94,8 @@ def partitions(n):
 	total = 1
 	#calculate downards to prevent recursive issues
 	for x in range(n):
-			partitions_k(n,n-x)
+		for y in range(n):
+			partitions_k(x,n-y)
 	for i in range(1,n/2+1):
 		total += partitions_k(n-i,i)
 	return total
