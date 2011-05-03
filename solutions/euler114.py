@@ -10,5 +10,5 @@ def count_blocks(minsize,maxsize,remaining,mcount={}):
 						remaining-(size+start+1))
 	mcount[(minsize,maxsize,remaining)] = total
 	return total
-print 1+count_blocks(3,30,30)
+print 1+count_blocks(3,50,50)
 
