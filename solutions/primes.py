@@ -11,15 +11,15 @@ print "primes alloc!"
 
 def get_primes():
 	global parray,primes_list,primes_array,primes_set
-	i = 4
+	i = 2
 	cur_prime = 2
 	array_length = len(parray)
 	sq_array_length = int(math.sqrt(len(parray)))
-	while i < sq_array_length:
+	while i <= sq_array_length:
 		i = cur_prime*2	     #zero next prime
 		parray[i::cur_prime] = 0#zero multiples of prime
 		i = cur_prime+1
-		while i < sq_array_length:
+		while i <= sq_array_length:
 			if parray[i] != 0:
 				cur_prime = parray[i]
 				break
