@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import itertools as it
 parray = np.arange(0,0)
 primes_list = []
 primes_array = []
@@ -77,6 +78,41 @@ def miller_rabin(n):
 def concat_nums(a,b):
 	return int(str(a)+str(b))
 	#res = a*10**(np.floor(np.log10(b))+1)+b
+
+def factor(n):
+	if n > len(parray):
+		raise n,"Insufficient Primes calculated"
+	result = []
+	for prime in primes_list:
+		if n % prime == 0:
+			result.append([prime,1])
+			n/=prime
+		while n % prime == 0:
+			n /= prime
+			result[-1][1]+=1
+		if n == 1:
+			break
+	return result
+
+def all_factors(prime_factors):
+	result = []
+	if len(prime_factors) == 0:
+		return []
+	if len(prime_factors) == 1:
+		prime, maxpower = prime_factors[0]
+		for power in range(1,maxpower+1):
+			result.append(prime**power)
+		return result
+	thisprime = all_factors([prime_factors[0]])
+	otherfactors = all_factors(prime_factors[1:])
+	result = thisprime+otherfactors
+	for num in thisprime:
+		for other in otherfactors:
+			result.append(num*other)
+	return sorted(result)
+		
+			
+
 	
 def euler_phi_factors(factors):
 	counts = {}

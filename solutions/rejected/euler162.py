@@ -3,6 +3,9 @@ from common_funcs import choose
 #DEGENERACY!!!!
 #crud
 #to fix, count all using _exactly_ k 0's
+#the issue is this
+#when we pick a slot, and enforce it to be A (or 1 or zero)
+#Nothing stops us from having this counted possibly before
 def calculate_hex(max):
 	total = 0L
 	#handle assuming lead is not zero
