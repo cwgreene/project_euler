@@ -5,9 +5,6 @@ import primes
 from Queue import PriorityQueue
 from common_funcs import gcd
 
-
-#below was a nice idea
-"""
 def handle_zero_divisors(n):
 	print "Zero divisors",
 	factors = primes.all_factors(primes.factor(primes.euler_phi(n)))
@@ -24,27 +21,14 @@ def handle_zero_divisors(n):
 			print n,factor*multiple
 			return factor*multiple
 		possibilities.put((factor*(multiple*1),factor,multiple+1))
-"""
 
-#brute force the damn things
-def handle_zero_divisors(n):
-	#perform sum
-	count =0
-	acc = 1
-	sum = 1 
-	while sum != 0:
-		acc = (acc*10) % n
-		sum = (sum+acc) % n
-		count +=1
-	return count
 
 def smallest_k(n,min=0):
 	if gcd(n,10) != 1:
 		return None
 	if gcd(n-9,n) != 1:
-		res = handle_zero_divisors(n)
-		print n,res
-		return res
+		return None
+#		return handle_zero_divisors(n)
 	factors = primes.all_factors(primes.factor(primes.euler_phi(n)))
 	if factors[-1] < min:
 		return None
@@ -57,20 +41,18 @@ def smallest_k(n,min=0):
 
 def main(max):
 	primes.init(2*max+1)
-	#A(n) < n. Apparently, the pigeonhole principle can be pulled out
-	#but I'm a bit confused as to how, as the number of states
-	#the sum can be in is dependent not only on the current sum
-	#but also the number of possible increments. Both of these 
-	#potentially are n, so it seems the A(n) is only bounded by n^2.
-	#for non-zero divisors, this can be immediately shown.
-	k = 10**6-1 
-	small = None
-	while small == None:
+	k = 89
+	results = []
+	while len(results) <25:
 		k+=2
 		if k % 5 == 0:
 			k+=2
+		if primes.is_prime(k):
+			continue
 		small = smallest_k(k)
-		if small < max:
-			small = None
-	print k
+		if small and ((k-1) % small) == 0:
+			print small
+			results.append(k)
+			print results
+	print sum(results)
 main(10**6)

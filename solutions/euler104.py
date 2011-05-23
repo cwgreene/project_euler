@@ -1,5 +1,8 @@
 #this is a quick and dirty solution
-#implementing the fast
+#A better way, so that the fibonacci calc goes faster (as well as
+#the str transform)
+#is to just keep track of the last 10 digits. Once we find a candidate
+#we use fast_fib to quickly recover the first 10 digits.
 
 
 #this used to be a modulo k version
@@ -10,7 +13,14 @@ def fibonacci_mod(prev1,prev2,k):
 
 #fast calc for fib
 #def fast_fib(n):
-	
+	#fast fib is really simple
+	#you say Hey! Fibonacci is just a matrix transformation 
+	#of the prev1 and prev2 vector!
+	#and exponentiating a vector can be done quickly, just
+	#like regular fast exponentiation!
+	#
+
+		
 z=0
 prev1=0
 prev2=1
