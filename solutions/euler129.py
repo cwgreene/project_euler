@@ -63,7 +63,7 @@ def main(max):
 	#but also the number of possible increments. Both of these 
 	#potentially are n, so it seems the A(n) is only bounded by n^2.
 	#for non-zero divisors, this can be immediately shown.
-	k = 10**6-1 
+	k = 10**6-1
 	small = None
 	while small == None:
 		k+=2
