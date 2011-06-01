@@ -127,13 +127,13 @@ def euler_phi_factors(factors):
 	return ep
 	
 
-def euler_phi(n, meuler_phi={1:1}):
+def euler_phi(n, meuler_phi={1:1},ignore=False):
 	if n in meuler_phi:
 		return meuler_phi[n]
 	if n in primes_set:
 		meuler_phi[n] = n-1
 		return n-1
-	if n < len(parray):
+	if n < len(parray) or ignore:
 		cur_n = n
 		for p in primes_list:
 			count = 0

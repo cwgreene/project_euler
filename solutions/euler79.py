@@ -1,3 +1,9 @@
+#currently not working
+#the solution was done by hand.
+#a bad thing about this problem is that
+#it is a lot easier if you assume everything is unique.
+
+
 def parse_file(filename)
 	file = open(filename)
 	lessthan = {}
