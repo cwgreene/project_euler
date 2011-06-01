@@ -1,36 +1,37 @@
-#we attempt to do a
-#backtracking like solution with a priority queue
-import Queue
-
-#return all ordered n choices from m options.
-def choose_ordered(n,m):
-	for x in range(n):
-		
-
-def addcode(curval,subcode):
-	#if subcode _matches_ then we don't need to do anything unusual.
-	for i,x in enumerate(subcode);
-		if x in curval:
-			curval = curval[curval.index(x):]
-		else
-			break
-	remaining = subcode[i:]
-	results = []
-	for index in choose_ordered(2,3):
-	
-
-def main():
-	bestqueue = Queue.PriorityQueue()
-	subcodes = []
+def parse_file(filename)
+	file = open(filename)
+	lessthan = {}
+	greaterthan = {}
 	for line in file:
-		subcodes.append(line.strip())
-	done = False
-	while not done:
-		curval,index = bestqueue.get()
-		curlist = subcodes[i:]
-		for i,subcode in enumerate(curlist):
-			nextvals,consumed = addcode(str(curval),subcode)
-			for nextval in nextvals:
-				bestqueue.put((nextval,index+(i+1)))
-	return best
-		
+		nums = line.strip().split()
+		for i,num in enumerate(nums):
+			for less in nums[i+1:]:
+				lessthan[num] =  less
+			for greater in nums[:i]:
+				greaterthan[num] = greater
+	return lessthan,greaterthan
+
+def subdict(adict,keyvalue):
+	result = {}
+	for k,v in adict:
+		if k != keyvalue:
+			adict[k]=
+	return result
+
+def satisfy_constraints(constraints):
+	result = []
+	lessthan,greaterthan = constraints
+	keyslt = lessthan.keys()
+	keysgt = greaterthan.keys()
+	#if keyslt is empty, we're done
+	if lens(keyslt) == 0:
+		return []
+	#take first key, and put it into result
+	thisvalue = keyslt[0]
+	result.append(thisvalue)
+
+	lessthanext = {}
+	for key in lessthan:
+		if thisvalue in lessthan[key]:
+			
+	

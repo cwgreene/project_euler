@@ -1,0 +1,9 @@
+Timing[n = 2;
+ count = 0;
+ While[n <= 10^7-1,
+  temp = Length[Divisors[n]];
+  If[temp == prev, count = count + 1];
+  prev = temp;
+  n = n + 1;]]
+count
+
