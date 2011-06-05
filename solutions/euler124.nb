@@ -1,0 +1,2 @@
+Sort[Table[{Times @@ Map[#[[1]] &, FactorInteger[x]], x}, 
+	{x, 1, 10^5}]][[10^4]][[2]]

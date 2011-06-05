@@ -1,0 +1,5 @@
+(*This is cheating. If you don't generate your own periods, it's cheating*)
+SquareQ[x_] := Sqrt[x] \[Element] Integers;
+Total[Table[If[SquareQ[n], 0,
+      If[Mod[Length[ContinuedFraction[Sqrt[n]][[2]]], 2] == 1, 1, 
+        0]], {n, 2, 10^4 - 1}]]
